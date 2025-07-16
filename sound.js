@@ -9,9 +9,12 @@ let jumpButton;
 
 let amp;
 
+let otamaSound;
+
+let musicRate = 1;
 
 function preload() {
-    
+    otamaSound = loadSound("Otama1.wav");
 }
 
 function setup() {
@@ -94,13 +97,33 @@ function draw() {
 
     let volume = amp.getLevel();
     let diameter = map(volume, 0, 0.5, 10, 200);
-
     fill(255,0,255);
     ellipse(width/2, height/2, diameter, diameter);
-
+    song.rate(musicRate);
     // song.setVolume(slider.value());
     song.pan(sliderRate.value());
     song.rate(sliderPan.value());
+    if(keyIsPressed) {
+        switch(keyCode){
+            case UP_ARROW:
+                console.log("UP!!!!");
+                break;
+            case DOWN_ARROW:
+                musicRate = 1;
+                console.log("DOWN!!!!");
+                break;
+            case LEFT_ARROW:
+                console.log("LEFT!!!!");
+                musicRate-=0.02;
+                break;
+            case RIGHT_ARROW:
+                console.log("RIGHT!!!!");
+                musicRate+=0.02;
+                break;
+        }
+    }
+
+    song.rate(musicRate);
 
 
     // background(song.currentTime() * 10,0,255);
